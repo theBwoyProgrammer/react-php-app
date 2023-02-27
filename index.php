@@ -1,6 +1,11 @@
 <?php
+declare(strict_types=1);
 
-$parts = explode('/', $_SERVER['REQUEST_URI']) ;
+$pl_autoload_register(function($class) {
+    require __DIR__ . "/src/$class.php";
+});
+
+$parts = explode('/', $_SERVER['REQUEST_URI']);
 
 if ($parts[1] != "products") {
     http_response_code(404);
@@ -9,4 +14,6 @@ if ($parts[1] != "products") {
 
 $id = $parts[2] ?? null;
 
-var_dump($id);
+$controller = new ProductController($gateway);
+
+$controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
