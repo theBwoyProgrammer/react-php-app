@@ -15,3 +15,9 @@ $api = $_SERVER['REQUEST_METHOD'];
 
 // get id from url
 $id = intval($_GET['id'] ?? '');
+
+// Get all or a single product from database
+if ($api == 'GET') {
+		$data = $product->fetch();
+        echo json_encode($data);
+}
