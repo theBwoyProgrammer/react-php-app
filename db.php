@@ -4,12 +4,11 @@
 
 	// Create a class products
 	class Database extends Config {
-	  // Fetch all or a single user from database
+
+	  // Fetch all products from database
 	  public function fetch($id = 0) {
 	    $sql = 'SELECT * FROM products';
-	    if ($id != 0) {
-	      $sql .= ' WHERE id = :id';
-	    }
+	    
 	    $stmt = $this->conn->prepare($sql);
 	    $stmt->execute(['id' => $id]);
 	    $rows = $stmt->fetchAll();
@@ -24,16 +23,15 @@
 	    return true;
 	  }
 
-	  // Update a user in the database. NOTE: WE DON'T REALLY NEED THIS FOR OUR APP.
-	  public function update($name, $email, $phone, $id) {
-	    $sql = 'UPDATE users SET name = :name, email = :email, phone = :phone WHERE id = :id';
-	    $stmt = $this->conn->prepare($sql);
-	    $stmt->execute(['name' => $name, 'email' => $email, 'phone' => $phone, 'id' => $id]);
-	    return true;
-	  }
+        // Update a product in the database
+        public function update($sku, $name, $price, $type, $attributes, $id) {
+            $sql = 'UPDATE products SET sku = :sku, name = :name, price = :price, type = :type, attributes = :attributes WHERE id = :id';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['sku' => $sku, 'name' => $name, 'price' => $price, 'type' => $type, 'attributes' => $attributes, 'id' => $id]);
+            return true;
+        }
 
 	  // Delete selected products from the database
-
       public function delete($ids) {
         $placeholders = rtrim(str_repeat('?,', count($ids)), ',');
         $sql = "DELETE FROM products WHERE id IN ($placeholders)";

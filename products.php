@@ -21,3 +21,18 @@ if ($api == 'GET') {
 		$data = $product->fetch();
         echo json_encode($data);
 }
+
+// Add a new product into the database
+if ($api == 'POST') {
+	$sku = $product->test_input($_POST['sku']);
+	$name = $product->test_input($_POST['name']);
+	$price = $product->test_input($_POST['price']);
+    $type = $product->test_input($_POST['type']);
+    $attributes = $product->test_input($_POST['attributes']);
+
+	if ($product->insert($sku, $name, $price, $type, $attributes)) {
+		echo $product->message('User added successfully!',false);
+	} else {
+		echo $product->message('Failed to add an user!',true);
+	}
+}
