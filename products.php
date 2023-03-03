@@ -36,3 +36,17 @@ if ($api == 'POST') {
 		echo $product->message('Failed to add an user!',true);
 	}
 }
+
+// Delete product(s) from database
+if ($api == 'DELETE') {
+	if (!empty($_POST['ids'])) {
+		$ids = $_POST['ids'];
+		if ($product->deleteMultiple($ids)) {
+			echo $product->message('Product(s) deleted successfully!', false);
+		} else {
+			echo $product->message('Failed to delete product(s)!', true);
+		}
+	} else {
+		echo $product->message('Product(s) not found!', true);
+	}
+}

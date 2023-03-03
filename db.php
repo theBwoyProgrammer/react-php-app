@@ -32,7 +32,7 @@
         }
 
 	  // Delete selected products from the database
-      public function delete($ids) {
+      public function deleteMultiple($ids) {
         $placeholders = rtrim(str_repeat('?,', count($ids)), ',');
         $sql = "DELETE FROM products WHERE id IN ($placeholders)";
         $stmt = $this->conn->prepare($sql);
