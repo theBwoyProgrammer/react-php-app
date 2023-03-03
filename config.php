@@ -18,7 +18,7 @@
 	    } catch (PDOException $e) {
 	      die('Connectionn Failed : ' . $e->getMessage());
 	    }
-	    return $this->conn;
+	    
 	  }
 
 	  // Sanitize Inputs
